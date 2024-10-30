@@ -24,6 +24,11 @@ app.post("/blog",async (req,res)=>{
     // const substile = req.body.substile
   
     const {title,description,subtitle} =req.body
+    if(!title || !description || !subtitle){
+        return res.status(400).json({
+            message : "Please provide title, description, subtitle,image"
+        })
+    }
     // console.log(req.body)
     await Blog.create({
         title : title,
