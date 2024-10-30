@@ -1,8 +1,12 @@
+require('dotenv').config()
 const express= require('express')
-const connectToDatabase = require('./database')
+const connectToDatabase = require('./database/index.js')
 const app= express()
 
-connectToDatabase()
+// Connect to the database
+connectToDatabase().catch(err => {
+    console.error("Failed to connect to the database:", err);
+});
 
 app.get("/",(req,res)=>{
     // console.log(req)
@@ -16,8 +20,7 @@ app.get("/about",(req,res)=>{
         message:"This is about page"
     })
 })
-app.listen(3000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("NodeJs project has started")
 })
 
-// mongodb+srv://drishyagurung:<db_password>@cluster0.xxlfp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 
